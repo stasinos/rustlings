@@ -7,19 +7,20 @@
 // in the signatures for now. If anything, this is a good way to peek ahead
 // to future exercises!)
 
-// I AM NOT DONE
 
 fn main() {
-    let original_price = 51;
+    let original_price : i8 = 52;
     println!("Your sale price is {}", sale_price(original_price));
 }
 
-fn sale_price(price: i32) -> {
-    if is_even(price) {
-        price - 10
+fn sale_price(price: i8) -> i32 {
+    let retv : i8;
+    if is_even(price.into()) {
+        retv = price - 10
     } else {
-        price - 3
+        retv = price - 3
     }
+    retv.into()
 }
 
 fn is_even(num: i32) -> bool {

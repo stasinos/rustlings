@@ -10,10 +10,12 @@
 // Write a function that calculates the price of an order of apples given
 // the quantity bought. No hints this time!
 
-// I AM NOT DONE
 
 // Put your function here!
-// fn calculate_price_of_apples {
+fn calculate_price_of_apples( batchsize : i8 ) -> i8 {
+    if batchsize > 40 { batchsize }
+    else { batchsize*2 }
+}
 
 // Don't modify this function!
 #[test]
