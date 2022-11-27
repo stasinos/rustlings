@@ -8,6 +8,7 @@
 
 use std::num::ParseIntError;
 use std::str::FromStr;
+use std::result::Result::Ok;
 
 #[derive(Debug, PartialEq)]
 struct Person {
@@ -28,7 +29,6 @@ enum ParsePersonError {
     ParseInt(ParseIntError),
 }
 
-// I AM NOT DONE
 
 // Steps:
 // 1. If the length of the provided string is 0, an error should be returned
@@ -46,6 +46,19 @@ enum ParsePersonError {
 impl FromStr for Person {
     type Err = ParsePersonError;
     fn from_str(s: &str) -> Result<Person, Self::Err> {
+      if s.len() == 0 { return Err(ParsePersonError::Empty); }
+      let mut retv = Person { name: "".to_string(), age: 0 };
+      let mut elems : Vec<&str> = s.split(",").collect();
+      if elems.len() != 2 { return Err(ParsePersonError::BadLen); }
+
+      if elems[0].len() > 0 { retv.name = elems[0].to_string(); }
+      else { return Err(ParsePersonError::NoName); }
+
+      match elems[1].parse::<usize>() {
+        Ok(a) => retv.age = a,
+	Err(e) => return Err(ParsePersonError::ParseInt(e))
+      }
+      return Ok(retv);
     }
 }
 
